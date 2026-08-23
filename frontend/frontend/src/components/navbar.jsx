@@ -1,15 +1,15 @@
+import {Link} from "react-router-dom"
+
 function Navbar() {
     // Navbar component for the Smart Study Planner.
     return(
         <nav className="navbar navbar-expand-sm bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#">Logo</a>
+                <a class="navbar-brand text-light" href="#">Study Planner</a>
              </div>
             <div className="container-fluid">
                 <ul className="navbar-nav">
-                    <li className="nav-item ">
-                        <a className="nav-link text-white" href="#">Link1</a>
-                    </li>
+                    <Link to = "/subject">Subjects</Link>
                 </ul>
             </div>
         </nav>
