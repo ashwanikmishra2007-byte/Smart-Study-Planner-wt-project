@@ -7,7 +7,8 @@ export default async function createTable() {
             subjectname VARCHAR(100) NOT NULL,
             subjectcode VARCHAR(50) NOT NULL,
             subjectcredit INT NOT NULL,
-            subjectsemester INT NOT NULL
+            subjectsemester INT NOT NULL,
+            priority INT NOT NULL
         );`
     );
     return q1;

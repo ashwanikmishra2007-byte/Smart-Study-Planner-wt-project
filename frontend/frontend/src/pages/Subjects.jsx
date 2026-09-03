@@ -5,6 +5,7 @@
     const [subjectcode,setsubjectcode]=useState("");
     const [subjectcredit,setsubjectcredit]=useState("");
     const [subjectsemester,setsubjectsemester]=useState("");
+    const [priority, setpriority]=useState("");
     const [result,setresult]=useState({});
     async function addsubject(e){
         e.preventDefault();
@@ -15,7 +16,7 @@
                 headers:{
                     "Content-Type": "application/json"
                 },
-                body:JSON.stringify({subjectname,subjectcode,subjectcredit,subjectsemester})
+                body:JSON.stringify({subjectname,subjectcode,subjectcredit,subjectsemester,priority})
             });
             const result=await response.json();
             console.log(result);
@@ -25,6 +26,7 @@
             setsubjectcode("");
             setsubjectcredit("");
             setsubjectsemester("");
+            setpriority("");
         } catch(err){
             console.log(err.message);
         }
@@ -107,6 +109,25 @@
                         <option value="6">Semester 6</option>
                         <option value="7">Semester 7</option>
                         <option value="8">Semester 8</option>
+                    </select>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="semester" className="form-label">
+                        Semester
+                    </label>
+
+                    <select
+                        id="priority"
+                        className="form-select"
+                        value={priority}
+                        onChange={(e)=>setpriority(e.target.value)}
+                    >
+                        <option value="">Select priority</option>
+                        <option value="1">Very Low</option>
+                        <option value="2">Low</option>
+                        <option value="3">Medium</option>
+                        <option value="4">High</option>
+                        <option value="5">Very high</option>
                     </select>
                 </div>
 

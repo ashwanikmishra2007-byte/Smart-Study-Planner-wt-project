@@ -3,6 +3,9 @@ import cors from "cors";
 import db from "./db.js";
 import createTable from "./table.js";
 import router from "./subject.js";
+import viewrouter from "./view.js";
+import updateput from "./updateput.js";
+import updateget from "./updateget.js";
 
 const app=express();
 const PORT=3000;
@@ -10,6 +13,9 @@ const PORT=3000;
 app.use(express.json());
 app.use(cors());
 app.use(router);
+app.use(viewrouter);
+app.use(updateput);
+app.use(updateget);
 
 async function startserver () {
     try {

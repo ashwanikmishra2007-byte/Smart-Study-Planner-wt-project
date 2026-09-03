@@ -3,16 +3,35 @@ import {Link} from "react-router-dom"
 function Navbar() {
     // Navbar component for the Smart Study Planner.
     return(
-        <nav className="navbar navbar-expand-sm bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand text-light" href="#">Study Planner</a>
-             </div>
-            <div className="container-fluid">
-                <ul className="navbar-nav">
-                    <Link to = "/subject">Subjects</Link>
-                </ul>
-            </div>
-        </nav>
+        <nav
+    className="navbar navbar-expand-sm"
+    style={{ backgroundColor: "#1E293B" }}
+>
+        <div className="container-fluid">
+            <Link to="/" className="navbar-brand text-light">
+                Study Planner
+            </Link>
+
+            <ul className="navbar-nav">
+                <li className="nav-item">
+                    <Link to="/subject" className="nav-link text-light">
+                        Add Subject
+                    </Link>
+                </li>
+
+                <li className="nav-item ms-3">
+                    <Link to="/view" className="nav-link text-light">
+                        View
+                    </Link>
+                </li>
+                <li className="nav-item ms-3">
+                    <Link to="/update" className="nav-link text-light">
+                        Update
+                    </Link>
+                </li>
+            </ul>
+        </div>
+    </nav>
     )
 }
 
