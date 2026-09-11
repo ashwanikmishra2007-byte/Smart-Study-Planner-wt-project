@@ -21,7 +21,6 @@ async function addsubject(subjectname,subjectcode,subjectcredit,subjectsemester,
 router.post("/subject",async(req,res)=>{
     try {
         const {subjectname,subjectcode,subjectcredit,subjectsemester,priority}=req.body;
-        console.log(req.body);
         if(!subjectname || !subjectcode || !subjectcredit || !subjectsemester || !priority ){
             return res.status(400).json({message:`These fields are required`});
         } else {

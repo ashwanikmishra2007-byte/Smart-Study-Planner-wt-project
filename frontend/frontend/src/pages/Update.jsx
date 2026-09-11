@@ -57,7 +57,7 @@ export default function Update() {
         return (
             <div className="mb-3">
                 <label className="form-label">Select Subject</label>
-                <select
+                <select   // select menu
                     className="form-select"
                     value={selectsubjects}
                     onChange={(e) => setselectsubjects(e.target.value)}
@@ -106,6 +106,23 @@ export default function Update() {
         )
     }
     return (
-        <HandleSelectChange/>
+        <div className="container py-5">
+
+        <div className="text-center mb-5">
+            <h1 className="fw-bold">Update Subject Priority</h1>
+            <p className="text-muted">
+                Change the priority of your subjects
+            </p>
+        </div>
+
+        <div className="row justify-content-center">
+            <div className="col-md-6">
+
+                <HandleSelectChange />
+
+            </div>
+        </div>
+
+    </div>
     )
 }

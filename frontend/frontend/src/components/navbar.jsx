@@ -29,6 +29,11 @@ function Navbar() {
                         Update
                     </Link>
                 </li>
+                <li className="nav-item ms-3">
+                    <Link to="/track" className="nav-link text-light">
+                        Track Progress
+                    </Link>
+                </li>
             </ul>
         </div>
     </nav>

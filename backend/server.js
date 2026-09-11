@@ -2,10 +2,14 @@ import express from "express";
 import cors from "cors";
 import db from "./db.js";
 import createTable from "./table.js";
+import trackTable from "./tracktable.js";
 import router from "./subject.js";
 import viewrouter from "./view.js";
 import updateput from "./updateput.js";
 import updateget from "./updateget.js";
+import trackpost from "./trackpost.js";
+import trackget from "./trackget.js";
+import topicupdate from "./topicupdate.js";
 
 const app=express();
 const PORT=3000;
@@ -16,10 +20,14 @@ app.use(router);
 app.use(viewrouter);
 app.use(updateput);
 app.use(updateget);
+app.use(trackpost);
+app.use(topicupdate);
+app.use(trackget);
 
 async function startserver () {
     try {
         await createTable();
+        await trackTable();
         console.log("Table created successfully");
 
         app.listen(PORT, () => {
