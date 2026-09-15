@@ -10,6 +10,7 @@ import updateget from "./updateget.js";
 import trackpost from "./trackpost.js";
 import trackget from "./trackget.js";
 import topicupdate from "./topicupdate.js";
+import topicgr from "./track.js";
 
 const app=express();
 const PORT=3000;
@@ -23,6 +24,7 @@ app.use(updateget);
 app.use(trackpost);
 app.use(topicupdate);
 app.use(trackget);
+app.use(topicgr);
 
 async function startserver () {
     try {
