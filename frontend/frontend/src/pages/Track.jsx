@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react";
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer
+} from "recharts";
 
  function Track() {
     const [subjects, setsubjects] = useState([]);
     const [selecsubject, setselectsubject] = useState("");
     const [topicname, settopicname] = useState("");
     const [topics, settopics] = useState([]);
+    const [message, setmessage]= useState("");
+    const [result, setresult]= useState("");
+    const [trackgraph, settrackgraph] = useState([]);
 
     async function getsubjects() {  //getting subjects from backend to display in frontend
         try {
@@ -28,7 +40,86 @@ import { useState, useEffect } from "react";
         }
     }
 
+    async function getgraph(){
+         try {
+            const response = await fetch("http://localhost:3000/track/progress");
+
+            const data = await response.json();
+            console.log(data);
+
+            settrackgraph(data);
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
     useEffect(()=>{
+        getgraph()
+    },[])
+
+    const chartdata=trackgraph.map(subject=>{
+        let percentage;
+        if(subject.totaltopics==0){
+            percentage=0;
+        } else{
+            percentage=(subject.completedtopics/subject.totaltopics)*100;
+        }
+        return {
+            subjectname:subject.subjectname,
+            percentage:percentage
+        }
+    });
+
+    async function updatetopic () {
+        try {
+            for(const topic of topics){
+                    console.log(
+                        "Updating:",
+                        topic.topicid,
+                        topic.topicname,
+                        topic.completed
+                    );
+
+                const response = await fetch("http://localhost:3000/track", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        topicid: topic.topicid,
+                        completed: topic.completed
+                    })
+                });
+                const data = await response.json();
+                console.log(data);
+            }
+            setmessage("Progress saved");
+            settopics(
+                topics.map(topic=>({
+                    ...topic,
+                    completed:false
+                }))
+            );
+        } catch(err){
+            console.log(err.message);
+        }
+    }
+
+    function handlecheck(topicid, checked){
+        settopics(
+            topics.map(topic=>{
+                if(topic.topicid==topicid){
+                    // whenever the value changes the create a new array with changed value
+                    return{...topic, completed:checked};
+                }
+                return topic;
+            })
+        )
+    }
+
+    //execute this function when selectsubject exists and [selectsubject] means run when subject changes
+    useEffect(()=>{    
         if(selecsubject){
             gettopic();
         }
@@ -49,6 +140,7 @@ import { useState, useEffect } from "react";
         });
 
         const data = await response.json();
+        setresult(data.message);
 
         console.log(data);
 
@@ -58,7 +150,6 @@ import { useState, useEffect } from "react";
         console.log(err.message);
     }
     }
-
 
     useEffect(() => {
         getsubjects();
@@ -105,6 +196,8 @@ import { useState, useEffect } from "react";
                         <input
                             className="form-check-input"
                             type="checkbox"
+                            checked={topic.completed}
+                            onChange={(e)=>handlecheck(topic.topicid, e.target.checked)}
                         />
 
                         <label className="form-check-label">
@@ -112,7 +205,46 @@ import { useState, useEffect } from "react";
                         </label>
                     </div>
                 ))}
+                <button
+                    className="btn btn-primary mt-2"
+                    onClick={updatetopic}
+                >
+                    Save progress
+                </button>
+
+                {message && (
+                    <div className="alert alert-success mt-3">
+                        {message}
+                    </div>
+                 )}
             </div>
+
+           <ResponsiveContainer width="50%" height={400}>  {/*BarChart is the main container of the graph.
+           It needs to know:
+how wide the graph is
+how tall it is
+what data it should display */}
+                <BarChart data={chartdata}>
+                    <CartesianGrid strokeDasharray="3 3" />
+
+                     <XAxis dataKey="subjectname" />
+                     {/*It tells Recharts:
+
+"Keep the Y-axis from 0 to 100."
+
+Because our value represents percentage. */}
+                    <YAxis domain={[0, 100]} />
+
+                    <Tooltip />
+                    {/*Bar tells Recharts:
+
+"Draw the actual bars."
+
+But how does it know how tall each bar should be? */}
+
+                    <Bar dataKey="percentage" />
+                </BarChart>
+            </ResponsiveContainer>
 
             {/*inputform*/}
             <div className="container mt-4">
@@ -143,6 +275,11 @@ import { useState, useEffect } from "react";
 
                     </div>
                 </div>
+                {result && (
+                    <div className="alert alert-success mt-3">
+                        {result}
+                    </div>
+                 )}
             </div>
 
         </>
