@@ -9,8 +9,8 @@ async function deletesubject(subjectname) {
     try {
         await trackTable();
         await createTable();
-        const progressResult = await db.query("DELETE FROM progress WHERE subjectname = ?", [subjectname]);
-        const subjectResult = await db.query("DELETE FROM subject WHERE subjectname = ?", [subjectname]);
+        const [progressResult] = await db.query("DELETE FROM progress WHERE subjectname = ?", [subjectname]);
+        const [subjectResult] = await db.query("DELETE FROM subject WHERE subjectname = ?", [subjectname]);
         console.log(progressResult, subjectResult);
         return { progress: progressResult, subject: subjectResult };
     } catch (err) {

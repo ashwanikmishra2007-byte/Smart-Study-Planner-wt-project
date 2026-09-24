@@ -18,7 +18,7 @@ export default function View (){
     return (
         <div className="container mt-5">
 
-    {/* Page Heading */}
+            {/* Page Heading */}
             <div className="mb-4">
                 <h2 className="fw-bold text-dark mb-1">
                    <i className="bi bi-book me-2"></i>

@@ -50,6 +50,11 @@ function Navbar() {
               📊 Schedule
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/delete" className="nav-link text-light px-3">
+              📊 Delete
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

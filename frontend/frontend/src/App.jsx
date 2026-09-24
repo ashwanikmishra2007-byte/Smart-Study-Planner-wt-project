@@ -5,6 +5,7 @@ import View from "./pages/View";
 import Update from "./pages/Update";
 import Track from "./pages/Track";
 import Schedule from "./pages/Schedule";
+import Delete from "./pages/Delete";
 //importing different components from different files
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/update" element={<Update/>}/>
         <Route path="/track" element={<Track/>}/>
         <Route path="/schedule" element={<Schedule/>}/>
+        <Route path="/delete" element={<Delete/>}/>
       </Routes>
     </div>
   );

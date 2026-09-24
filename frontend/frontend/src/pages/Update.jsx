@@ -6,6 +6,7 @@ export default function Update() {
   const [priority, setpriority] = useState("");
   const [currentPriority, setCurrentPriority] = useState("");
   const [message, setmessage] = useState({});
+
   async function getupdate() {
     try {
       const response = await fetch("http://localhost:3000/update");
